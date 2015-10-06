@@ -1,2 +1,2 @@
-# htn-decision
-Messing around with an HTN decision library
+#libdecision
+Messing around with a library for making (ai) decisions
