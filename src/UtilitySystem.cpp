@@ -10,8 +10,20 @@
 
 namespace libdec {
 
+UtilitySystem::UtilitySystem() {
+  random_device rd;
+  mt = new mt19937(rd());
+}
+
 void UtilitySystem::addOption(const string &key, IWeightedOption * option) {
+  sum = 0;
   options_[key] = option;
+
+  for(auto option : options_) {
+    sum += option.second->weight();
+  }
+
+  dist = new uniform_real_distribution<float>(0.0, sum);
 }
 
 void UtilitySystem::removeOption(const string &key) {
@@ -19,16 +31,8 @@ void UtilitySystem::removeOption(const string &key) {
 }
 
 IOption * UtilitySystem::decide() const {
-  float sum = 0;
-
-  for(auto option : options_) {
-    sum += option.second->weight();
-  }
-
-  random_device rd;
-  mt19937 mt(rd());
-  uniform_real_distribution<float> dist(0.0, sum);
-  float num = dist(mt);
+  float num = (*dist)(*mt);
+  //float num = 3.0;
 
   for(auto option : options_) {
     if(num < option.second->weight()) {
