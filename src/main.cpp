@@ -16,7 +16,6 @@
 int iterations = 10000;
 
 int main() {
-  std::clock_t start = std::clock();
   UtilitySystem ai;
 
   list<DumbOption> options {
@@ -32,18 +31,19 @@ int main() {
   unordered_map<string, int> testmap;
   
 
+  std::clock_t start = std::clock();
   for(int i = 0; i < iterations; i++) {
     auto choice = ai.decide();
     testmap[choice->desc()] += 1;
   }
+  std::clock_t end = std::clock();
   
 
   for(auto option : testmap) {
-    printf("%s : %f\n", option.first.c_str(), (float) option.second / (float)iterations);
+    printf("%s : %f\n", option.first.c_str(), (float) option.second);
   }
-  std::clock_t end = std::clock();
 
-  printf("Time: %f ms\n", (end - start) / (double)(CLOCKS_PER_SEC));
+  printf("Time: %f \n", (end - start) / (double)(CLOCKS_PER_SEC));
 
   return 0;
 }
