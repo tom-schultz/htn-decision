@@ -13,7 +13,7 @@ namespace libdecision
             var stopwatch = new Stopwatch();
             var options = new List<IWeightedOption>
             {
-                    new WeightedOption("shit", 1.0f),
+                    new WeightedOption("sleep", 1.0f),
                     new WeightedOption("eat", 3.0f),
                     new WeightedOption("work", 8.0f)
             };
